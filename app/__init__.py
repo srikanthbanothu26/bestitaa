@@ -7,6 +7,7 @@ from app.routes import main, student, faculty, stu_course, uploads,assessments
 
 import os
 secret = os.environ.get('SECRET_KEY')
+print(os.environ.get('DATABASE_URL'))
 
 def create_app():
     server = Flask(__name__)
