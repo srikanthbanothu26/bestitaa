@@ -5,6 +5,9 @@ from app.configure import Config
 from app.extensions.login_manager import login_manager
 from app.routes import main, student, faculty, stu_course, uploads,assessments
 
+import os
+secret = os.environ.get('SECRET_KEY')
+
 def create_app():
     server = Flask(__name__)
     server.config.from_object(Config)
