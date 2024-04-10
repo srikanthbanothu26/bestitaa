@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pics</title>
+    <link rel="icon" href="static\img\Screenshot 2024-02-27 at 11-01-46 Colors LOGO.com1.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class='h-full w-full'>
+    <div class="flex justify-end w-full">
+        <a class="border-4 rounded-lg bg-green-600 px-4 py-2" href="/">back</a> 
+    </div>   
+    <div class="grid grid-cols-5 gap-10">  
+        {% for image in uploaded_images %} 
+        <div class="grid grid-cols-1 gap-4  border-2">
+            <img src="static/uploadingpics/{{image.filename}}" alt="{{ image.filename }}" class="h-70 w-60">
+        </div>
+        {% endfor %}  
+    </div>     
+</body>
+</html>

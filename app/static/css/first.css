@@ -1,0 +1,42 @@
+
+.transform {
+    transition: transform 0.3s ease;
+}
+
+/* Gradient background animation */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Apply gradient animation to the background */
+.bg-gradient-to-r {
+    animation: gradientAnimation 10s ease infinite alternate-reverse;
+}
+
+/* Custom CSS */
+.text-gradient {
+    background: linear-gradient(to right, #ff0000, #00ff00, #ff00f2, #ffff00); /* Specify your gradient colors here */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.text-gradient1 {
+    background: linear-gradient(to right, #ff00cc, #333399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.container_1{
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.container_1:hover {
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    padding: 4px;
+}

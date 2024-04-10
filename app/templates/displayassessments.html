@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessments</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 cursor-pointer">
+    <div class="flex justify-end mr-10">
+        <span id="current-time" class="text-xl border-2 bg-rose-700 text-white p-4 rounded-lg hover:bg-green-600"></span>
+    </div>
+
+    <div class="container mx-auto py-8 flex">
+        <div class="w-3/4 bg-white rounded-lg shadow-md p-6">
+            <h2 id="question-title" class="text-xl font-semibold mb-4"></h2>
+            <ul id="options-list" class="ml-8"></ul>
+            <div class="flex justify-between mt-4">
+                <button id="prev-btn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded" onclick="prevQuestion()">Previous</button>
+                <button id="next-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="nextQuestion()">Next</button>
+            </div>
+            <form id="answers-form" action="/submit_answers/{{ current_user.course }}" method="post" style="display: inline;">
+                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Submit Answers</button>
+            </form>            
+            
+            <button id="clear-btn" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4" onclick="clearSelection()">Clear Selection</button>
+        </div>
+        <div class="w-1/4 ml-8">
+            <h2 class="text-xl font-bold mb-4">Questions</h2>
+            <div id="question-list" class="grid grid-cols-4 gap-y-4">
+                {% for index, _ in enumerate(assessments) %}
+                    <div class="items-center question-number cursor-pointer border-2 rounded-full justify-center flex mr-4 h-10 w-10 border-green-800" onclick="showQuestion({{ index }})">{{ index + 1 }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="bg-black text-white h-96 w-96 grid grid-cols-1 justify-center items-center rounded-md p-10">
+            <div class="grid grid-cols-1">
+                <p>id:{{current_user.id}}</p>
+                <div class="profile-image-container justify-center flex">
+                    {% if current_user.profile_image %}
+                    <img id="profile-image" src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}" class="h-24 w-24 rounded-full" alt="{{ current_user.username }}'s Profile Image" onerror="this.onerror=null;this.src='{{ url_for('static', filename='profile_pics/profile.png') }}';" />
+                    {% else %}
+                    <img id="profile-image" src="{{ url_for('static', filename='profile_pics/default.png') }}" class="h-16 w-16 rounded-full" alt="Default Profile Image">
+                    {% endif %}
+                </div>
+                <!--<button id="edit-profile-btn" class="ml-20 border-2 flex inline text-white rounded h-8 w-16">Update</button>
+                <input type="file" id="file-upload" accept="image/*" style="display: none;">
+                <button id="upload-btn" style="display: none;" class="bg-green-600">Upload</button>-->
+                <div class="grid grid-cols-1 mt-8">
+                    <p class="">name:<b class="ml-2">{{current_user.username}}</b><p>
+                    <p class="">email:<b class="ml-2">{{current_user.email}}</b></p>
+                    <p class="">course:<b class="ml-2">{{current_user.course}}</b></p>
+                </div>
+                <a href="/" class="border border-white py-1 px-3 rounded-lg mt-8 bg-rose-600 justify-center flex hover:bg-green-600">LOGOUT</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        const questions = [
+            {% for assessment in assessments %}
+                {
+                    question: "{{ assessment.question }}",
+                    options: [
+                        "{{ assessment.option1 }}",
+                        "{{ assessment.option2 }}",
+                        "{{ assessment.option3 }}",
+                        "{{ assessment.option4 }}"
+                    ]
+                },
+            {% endfor %}
+        ];
+
+        const questionTitle = document.getElementById('question-title');
+        const optionsList = document.getElementById('options-list');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        // Array to store selected options
+        const selectedOptions = new Array(questions.length).fill(null);
+
+        // Initially display the first question
+        let currentQuestionIndex = 0;
+        showQuestion(currentQuestionIndex);
+
+        function showQuestion(index) {
+            const question = questions[index];
+            questionTitle.textContent = `Question ${index + 1}: ${question.question}`;
+            optionsList.innerHTML = '';
+            question.options.forEach((option, optionIndex) => {
+                const li = document.createElement('li');
+                li.textContent = option;
+                li.classList.add('cursor-pointer', 'transition', 'duration-300', 'ease-in-out', 'py-2', 'px-4', 'my-2', 'rounded');
+                if (selectedOptions[index] === optionIndex) {
+                    li.classList.add('bg-green-500', 'text-white');
+                } else {
+                    li.classList.add('bg-white', 'text-gray-800', 'hover:bg-gray-200');
+                }
+                li.addEventListener('click', () => selectOption(index, optionIndex));
+                optionsList.appendChild(li);
+            });
+            // Highlight selected question
+            const questionNumbers = document.querySelectorAll('.question-number');
+            questionNumbers.forEach((elem, idx) => {
+                if (idx === index) {
+                    elem.classList.add('font-bold', 'text-blue-500');
+                } else {
+                    elem.classList.remove('font-bold', 'text-blue-500');
+                }
+            });
+            // Disable prev/next buttons if at the first or last question
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === questions.length - 1;
+            currentQuestionIndex = index;
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            selectedOptions[questionIndex] = optionIndex;
+            showQuestion(questionIndex);
+        }
+
+        function clearSelection() {
+            selectedOptions[currentQuestionIndex] = null;
+            showQuestion(currentQuestionIndex);
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+            }
+        }
+        
+    </script>
+
+    <script>
+        document.getElementById('upload-btn').addEventListener('click', function() {
+            var fileInput = document.getElementById('file-upload');
+            var file = fileInput.files[0];
+            if (file) {
+                var formData = new FormData();
+                formData.append('profile_image', file);
+                
+                fetch('/upload_profile_image', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Network response was not ok.');
+                })
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('profile-image').src = data.profile_image_url;
+                        alert('Profile image uploaded successfully.');
+                    } else {
+                        alert('Failed to upload profile image.');
+                    }
+                })
+                .catch(error => {
+                    console.error('There was an error with the fetch operation:', error);
+                });
+            } else {
+                alert('No file selected.');
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const editBtn = document.getElementById('edit-profile-btn');
+            const fileUpload = document.getElementById('file-upload');
+            const uploadBtn = document.getElementById('upload-btn');
+    
+            editBtn.addEventListener('click', function() {
+                fileUpload.style.display = 'block';
+                uploadBtn.style.display = 'block';
+            });
+        });
+    </script> 
+    <script>
+        document.getElementById('answers-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            // Iterate through questions and update hidden input fields with selected options
+            questions.forEach((question, index) => {
+                const selectedOptionIndex = selectedOptions[index];
+                if (selectedOptionIndex !== null) {
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.setAttribute('type', 'hidden');
+                    hiddenInput.setAttribute('name', `answer${index + 1}`);
+                    hiddenInput.setAttribute('value', question.options[selectedOptionIndex]);
+                    this.appendChild(hiddenInput);
+                }
+            });
+            
+            // Display prompt message
+            const confirmation = confirm("Are you sure you want to submit?");
+            if (confirmation) {
+                // Submit the form
+                this.submit();
+            } else {
+                // If not confirmed, remove dynamically added hidden input fields
+                document.querySelectorAll('input[type="hidden"]').forEach(element => element.remove());
+                // Do nothing
+                return false;
+            }
+        });
+    </script>
+    <script>
+        // Function to update the current time
+        function updateCurrentTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const currentTimeString = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('current-time').textContent = currentTimeString;
+        }
+    
+        // Update the current time initially
+        updateCurrentTime();
+    
+        // Update the current time every second
+        setInterval(updateCurrentTime, 1000);
+    </script> 
+</body>
+</html>

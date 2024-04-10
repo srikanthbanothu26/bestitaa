@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-8">
+
+<div class="bg-white rounded-lg shadow-md p-8">
+    <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Faculty Dashboard</h1>
+    <h2 class="text-center">Welcome {{ email }}</h2>
+    <div>
+        <h2 class="text-right">DETAILS</h2>
+        <p class="text-right"><strong>Email:</strong> {{ email }}</p>
+        <p class="text-right"><strong>ID:</strong> {{ id }}</p>
+        <p class="text-right"><strong>Course:</strong> {{ course }}</p>
+    </div>
+    <div class="grid grid-cols-2">
+        <div class="grid grid-cols-1">
+            <div>
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Upload Notes</h2>
+                <form id="upload-notes-form" action="/upload/notes" method="post" enctype="multipart/form-data" class="flex  space-x-4">
+                    <input type="file" name="file" class="border border-gray-300 p-2 rounded-md" accept=".txt,.pdf,.png,.jpg,.jpeg,.gif">
+                    <button type="submit" class="bg-green-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none">Upload</button>
+                </form>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Upload Recordings</h2>
+                <form id="upload-recordings-form" action="/upload/recordings" method="post" enctype="multipart/form-data" class="flex items-center space-x-4">
+                    <input type="file" name="file" class="border border-gray-300 p-2 rounded-md" accept=".mp4">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none">Upload</button>
+                </form>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Upload Assignments</h2>
+                <form id="upload-assignments-form" action="/upload/assignments" method="post" enctype="multipart/form-data" class="flex items-center space-x-4">
+                    <input type="file" name="file" class="border border-gray-300 p-2 rounded-md" accept=".txt,.pdf,.png,.jpg,.jpeg,.gif">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none">Upload</button>
+                </form>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Upload Assessments</h2>
+                <form id="upload-assessments-form" action="/upload/assessments" method="post" enctype="multipart/form-data" class="flex items-center space-x-4">
+                    <input type="file" name="file" class="border border-gray-300 p-2 rounded-md" accept=".txt,.pdf,.png,.jpg,.jpeg,.gif">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none">Upload</button>
+                </form>
+                <a href="/upload_assessment">upload assessment</a>
+            </div>
+        </div>
+        <div class="grid grid-cols-1">
+            <div class="mt-8">
+                <form id="search-files-form" class="flex gap-4 flex-wrap justify-end items-center mt-5" action="/search_files">
+                    <input type="text" name="search_filename" placeholder="Search by filename" class="p-2 border border-gray-300 rounded-md w-1/2">
+                    <button type="submit" class="p-2 bg-blue-500 text-black rounded-md mr-2">Search</button>
+                </form>                
+            </div>
+            <div id="uploaded-files-container"></div>
+            <div class="mt-8">     
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 text-black">Uploaded Files</h2>
+                <div id="uploaded-files-list" class="list-disc pl-8 text-black">
+                    <!-- File list will be populated dynamically -->
+                </div>
+            </div>
+            <div class="mt-8">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 text-black">Uploaded Questions</h2>
+                <div id="uploaded-questions-container"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('search-files-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+        
+            const formData = new FormData(this);
+            const searchParams = new URLSearchParams(formData).toString();
+        
+            fetch('/search_files', {
+                method: 'POST',
+                body: searchParams,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                displayFiles(data);
+            })
+            .catch(error => {
+                console.error('Error fetching files:', error);
+            });
+        });
+
+        function displayFiles(files) {
+            const uploadedFilesContainer = document.getElementById('uploaded-files-container');
+            uploadedFilesContainer.innerHTML = ''; // Clear the container before adding new files
+        
+            if (files.length === 0) {
+                // Display message when no files found
+                uploadedFilesContainer.innerHTML = '<p>No files found</p>';
+                return;
+            }
+        
+            files.forEach(file => {
+                const fileContainer = document.createElement('div');
+                fileContainer.className = 'border border-gray-300 p-4 rounded-md mb-4';
+        
+                const fileInfo = document.createElement('span');
+                fileInfo.textContent = `${file.filename} (${file.day})`; // Display filename and day
+                fileContainer.appendChild(fileInfo);
+        
+                uploadedFilesContainer.appendChild(fileContainer);
+            });
+        }
+
+        function fetchUploadedFiles() {
+            // Fetch the list of uploaded files from the server
+            fetch('/uploaded_files')
+                .then(response => response.json())
+                .then(data => {
+                    const uploadedFilesList = document.getElementById('uploaded-files-list');
+                    uploadedFilesList.innerHTML = ''; // Clear the list before adding new files
+        
+                    data.forEach(file => {
+                        const listItem = document.createElement('div');
+        
+                        const fileInfo = document.createElement('span');
+                        fileInfo.textContent = `${file.filename} (${file.day})`; // Display filename and day
+                        listItem.appendChild(fileInfo);
+        
+                        // Add a delete button beside each file
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.className = 'bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 ml-2 rounded-md focus:outline-none';
+                        deleteButton.onclick = function() {
+                            // Call the deleteFile function with filename and day after confirmation
+                            if (confirm('Are you sure you want to delete this file?')) {
+                                deleteFile(file.filename, file.day);
+                            }
+                        };
+                        listItem.appendChild(deleteButton);
+        
+                        uploadedFilesList.appendChild(listItem);
+                    });
+                });
+        }
+        
+        function deleteFile(filename, day) {
+            // Send a request to delete the file with filename and day
+            fetch('/deletefile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    filename: filename,
+                    day: day
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    // File deleted successfully, fetch the updated list of files
+                    fetchUploadedFiles();
+                } else {
+                    // Error occurred while deleting file
+                    alert('Error deleting file');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }       
+        // Fetch the list of uploaded files when the page loads
+    </script>
+    <script>
+        function fetchUploadedQuestions() {
+            const facultyId = {{ id}};
+            console.log('Faculty ID:', facultyId);
+            fetch(`/uploaded_questions/${facultyId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const uploadedQuestionsContainer = document.getElementById('uploaded-questions-container');
+                    uploadedQuestionsContainer.innerHTML = ''; // Clear the container before adding new questions
+            
+                    if (data.length === 0) {
+                        uploadedQuestionsContainer.innerHTML = '<p>No questions found</p>';
+                        return;
+                    }
+            
+                    data.forEach(question => {
+                        const questionContainer = document.createElement('div');
+                        questionContainer.className = 'border border-gray-300 p-4 rounded-md mb-4';
+                
+                        const questionText = document.createElement('p');
+                        questionText.textContent = `Question: ${question.question}`;
+                        questionContainer.appendChild(questionText);
+                        
+                        const options = ['option1', 'option2', 'option3', 'option4'];
+                        options.forEach(option => {
+                            const optionText = document.createElement('p');
+                            optionText.textContent = `${option}: ${question[option]}`;
+                            questionContainer.appendChild(optionText);
+                        });
+        
+                        const correctAnswer = document.createElement('p');
+                        correctAnswer.textContent = `Correct Answer: ${question.correct_answer}`;
+                        questionContainer.appendChild(correctAnswer);
+                
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.className = 'bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 ml-2 rounded-md focus:outline-none';
+                        deleteButton.onclick = function() {
+                            if (confirm('Are you sure you want to delete this question?')) {
+                                deleteQuestion(question.id);
+                            }
+                        };
+                        questionContainer.appendChild(deleteButton);
+                
+                        uploadedQuestionsContainer.appendChild(questionContainer);
+                    });
+                });
+        }        
+        
+        function deleteQuestion(questionId) {
+            // Send a request to delete the question with questionId
+            fetch('/delete_question', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    question_id: questionId
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Question deleted successfully, fetch the updated list of questions
+                    fetchUploadedQuestions();
+                } else {
+                    // Error occurred while deleting question
+                    alert('Error deleting question');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        
+        // Fetch the list of uploaded questions when the page loads
+    </script> 
+    <script>
+        window.onload = function() {
+            fetchUploadedFiles();
+            fetchUploadedQuestions();
+        };
+    </script>
+</body>
+</html>

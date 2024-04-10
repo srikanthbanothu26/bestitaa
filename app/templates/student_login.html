@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN</title>
+    <link rel="stylesheet"  href="static\css\first.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black font-sans flex justify-center items-center h-screen">
+    <div class="flex flex-col">
+        <div class="x border border-gray-300 pl-2 pr-2 pb-1 rounded-lg shadow-md mt-1 w-96 items-center">
+            <form method="POST" class="space-y-4" action="/student_login">
+                <a class="flex justify-end" href="/">BACK</a>
+                {{ form.csrf_token }}
+                <h1 class="text-center text-3xl font-bold text-gradient">BEST</h1>
+                <ul class="text-center text-white">IT ACADEMY</ul>
+                <div class="flex justify-center">
+                    <img src="static\profile_pics\profile.png" class="h-20 w-20 rounded-full border-2 border-white">
+                </div>
+                <div class="form-group grid grid-cols-3">
+                    <p class='text-white'>{{ form.username.label }}</p>
+                    {{ form.username(class="w-full px-2 py-2 rounded border border-gray-300 col-span-2",placeholder="Enter your name" )}}
+                </div>
+                <div class="form-group grid grid-cols-3">
+                    <p class='text-white'>{{ form.password.label }}</p>
+                    {{ form.password(class="w-full px-4 py-2 rounded border border-gray-300 col-span-2",placeholder="enter more than 6 characters") }}
+                </div>
+
+                <div class="form-group grid grid-cols-3">
+                    <p class='text-white'>{{ form.course.label }}</p>
+                    {{ form.course(class="w-full px-4 py-2 rounded border border-gray-300 col-span-2") }}
+                </div>
+                <div class="flex justify-center ">
+                    <button type="submit" class="bg-rose-600 text-white px-6 py-2 rounded hover:bg-green-600">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

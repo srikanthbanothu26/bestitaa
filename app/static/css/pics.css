@@ -1,0 +1,67 @@
+@keyframes moving {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.image-container {
+    position: relative;
+}
+
+
+/* Style for the circular buttons */
+.button-container {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.button {
+    width: 30px;
+    height: 30px;
+    background-color: #3498db;
+    border-radius: 50%;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+/* Media queries for responsiveness */
+@media screen and (max-width: 768px) {
+    .button-container {
+        bottom: 10px; /* Adjust the bottom spacing for smaller screens */
+    }
+
+    /* Adjust heading font sizes */
+    .text-4xl {
+        font-size: 2rem; /* Adjust as needed */
+    }
+
+    .text-2xl {
+        font-size: 1.5rem; /* Adjust as needed */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .button-container {
+        bottom: 5px; /* Further adjust the bottom spacing for even smaller screens */
+    }
+
+    /* Further adjust heading font sizes */
+    .text-4xl {
+        font-size: 1.5rem; /* Adjust as needed */
+    }
+
+    .text-2xl {
+        font-size: 1.25rem; /* Adjust as needed */
+    }
+
+}
+.pro{
+    overflow-x: scroll;
+}

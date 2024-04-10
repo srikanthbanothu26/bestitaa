@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGISTRATION</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"  href="static\css\first.css">
+</head>
+<body class="bg-black font-sans  flex justify-center h-screen items-center ">
+    <div class=" items-center flex flex-col mt-2 border-2 border-blue-600 ">
+        <div class="x text-white bg-black border border-gray-300 pl-2 pr-2 rounded-lg shadow-md items-center m-4">
+            <form method="POST" class="space-y-2" action="/student_registration">
+                <a class="flex justify-end" href="/">BACK</a>
+                {{ form.csrf_token }}
+                <div class="pb-8">
+                    <ul class="text-center text-2xl font-bold text-gradient">BEST</ul>
+                    <ul class="text-center ">IT ACADEMY</ul>
+                </div>
+                <div class="grid justify-center">
+                    <img src="static\profile_pics\profile.png" class="h-20 w-20 rounded-full border-2 border-white overflow-hidden">
+                </div>
+                <div class="flex flex-col gap-4">
+                    <div class="form-group grid grid-cols-3 items-center">
+                        {{ form.username.label }}
+                        <p class="text-black col-span-2">{{ form.username(class="w-full p-2 rounded border-2 border-gray-300 col-span-2",placeholder="Enter your name" )}}</p>
+                    </div>
+                    <div class="form-group  grid grid-cols-3 items-center">
+                        {{ form.email.label }}
+                        <p class="text-black col-span-2">{{ form.email(class="w-full p-2 rounded border-2 col-span-2 border-gray-300",placeholder="enter your email id") }}</p>
+                    </div>
+                    <div class="form-group grid grid-cols-3 items-center">
+                        {{ form.password.label }}
+                        <p class="text-black col-span-2">{{ form.password(class="w-full p-1 rounded border-2  col-span-2 border-gray-300",placeholder="enter more than 6 characters") }}</p>
+                    </div>
+                    <div class="form-group grid grid-cols-3 items-center">
+                        {{ form.confirm_password.label(class="mr-2") }}
+                        <p class="text-black col-span-2">{{ form.confirm_password(class="w-full p-2 rounded border-2 col-span-2 border-gray-300",placeholder="enter more than 6 characters") }}</p>
+                    </div>
+                    <div class="form-group grid grid-cols-3 items-center">
+                        {{ form.course.label }}
+                        <p class="text-black col-span-2">{{ form.course(class="w-full p-2 rounded border-2  col-span-2 border-gray-300") }}</p>
+                    </div>
+                    <div class="flex justify-center ">
+                        <button type="submit" class="bg-rose-600 text-white rounded hover:bg-green-600 mb-2 p-2">SIGN-UP</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

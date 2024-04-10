@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital marketing Course</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"  href="static\css\first.css">
+</head>
+<body class="bg-black font-sans">
+    <div class="bg-gradient-to-r from-blue-800 to-rose-500 text-white flex flex-row w-full h-20 justify-between fixed">
+        <div class="flex flex-row w-full justify-between">
+            <ul class="flex flex-col text-xl ml-4">
+                <a href="" class="text-2xl text-gradient">B E S T</a>
+                <a href="" class="">IT Academy</a>
+            </ul>
+            <div class="flex  text-green-500  items-center gap-6 mr-10"> 
+                <button class="bg-green-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-full focus:outline-none" onclick="scrollToSection('placements')">PLACEMENTS</button>      
+                <button class="bg-green-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-full focus:outline-none" onclick="scrollToSection('notes')">NOTES</button>
+                <button class="bg-green-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-full focus:outline-none" onclick="scrollToSection('recordings')">RECORDINGS</button>               
+                <button class="bg-green-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-full focus:outline-none" onclick="scrollToSection('assignments')">ASSIGNMENTS</button>         
+                <button class="bg-green-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg w-full focus:outline-none" onclick="scrollToSection('assessments')">ASSESSMENTS</button>          
+            </div>     
+        </div>
+        <div class="bg-red-700 h-96 w-70 grid grid-cols-1 justify-center items-center rounded-md">
+            <div class="pl-8 pr-8">
+                <div class="profile-image-container ml-16">
+                    {% if current_user.profile_image %}
+                    <img id="profile-image" src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}" class="h-24 w-24 rounded-full" alt="{{ current_user.username }}'s Profile Image" onerror="this.onerror=null;this.src='{{ url_for('static', filename='profile_pics/profile.png') }}';" />
+                    {% else %}
+                    <img id="profile-image" src="{{ url_for('static', filename='profile_pics/default.png') }}" class="h-16 w-16 rounded-full" alt="Default Profile Image">
+                    {% endif %}
+                </div>
+                <button id="edit-profile-btn" class="ml-20 border-2 flex inline text-white rounded h-8 w-16">Update</button>
+                <input type="file" id="file-upload" accept="image/*" style="display: none;">
+                <button id="upload-btn" style="display: none;" class="bg-green-600">Upload</button>
+                <p class="mt-8">name:{{current_user.username}}<p>
+                <p>id:{{current_user.id}}</p>
+                <p class="pr-10">email:{{current_user.email}}</p>
+                <p class="mb-10">course:{{current_user.course}}</p>
+                <a href="/" class="border border-white py-1 px-3 rounded-lg mt-8">LOGOUT</a>
+            </div>
+        </div>   
+    </div>
+    <div class="container grid grid-cols-3 pt-16">  
+        <div class="px-6 mt-10 grid grid-cols-1 ml-16 gap-20 col-span-2">
+            <div class="flex flex-col items-center h-96 rounded-lg mt-10 bg-gray-200 text-gray-800 p-6 rounded-lg mb-6" id="placements">
+                <h1 class="text-2xl font-bold mb-4 ">PLACEMENT ANNOUNCEMENTS</h1>
+                <table class="text-black border-collapse w-full">
+                    <thead>
+                        <tr>
+                            <th class="border border-gray-300 px-4 py-2">Date</th>
+                            <th class="border border-gray-300 px-4 py-2">Company Name</th>
+                            <th class="border border-gray-300 px-4 py-2">Company Details</th>
+                            <th class="border border-gray-300 px-4 py-2">Last Date to Apply</th>
+                            <th class="border border-gray-300 px-4 py-2">Apply</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for placement in digitalmarketing_course_placements %}
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">{{ placement.Date }}</td>
+                            <td class="border border-gray-300 px-4 py-2">{{ placement.placement_company_name }}</td>
+                            <td class="border border-gray-300 px-4 py-2">{{ placement.company_details }}</td>
+                            <td class="border border-gray-300 px-4 py-2">{{ placement.last_date_to_apply }}</td>
+                            <td class="border border-gray-300 px-4 py-2"><a href={{ placement.link }}>{{ placement.link }}</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>                           
+            </div>
+            <div class="bg-blue-800 text-white p-6 rounded-lg mb-6 overflow-y-scroll h-full text-center" id="notes">              
+                <h1 class="text-2xl font-bold mb-4">NOTES</h1>
+                <ul>
+                    {% for file in file_notes %}
+                    <li>
+                        <form class="download-form" 
+                              action="#" 
+                              method="post" 
+                              data-course="digitalmarketing"
+                              data-file-type="notes" 
+                              data-filename="{{ file }}">
+                            <button type="submit" class="btn-link" enctype="multipart/form-data" accept=".txt,.pdf,.png,.jpg,.jpeg,.gif">{{ file }}</button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>                                                                
+            </div>
+            
+
+            <div class="bg-blue-800 text-white p-6 rounded-lg mb-6 overflow-y-scroll h-full text-center" id="recordings">              
+                <h1 class="text-2xl font-bold mb-4">RECORDINGS</h1>
+                <ul>
+                    {% for file in file_recordings %}
+                    <li>
+                        <form class="download-form" 
+                              action="#" 
+                              method="post" 
+                              data-course="digitalmarketing" 
+                              data-file-type="recordings" 
+                              data-filename="{{ file }}">
+                            <button type="submit" class="btn-link" enctype="multipart/form-data" accept=".mp4">{{ file }}</button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>                                                                
+            </div>
+            
+            <div class="bg-blue-800 text-white p-6 rounded-lg mb-6 overflow-y-scroll h-full text-center" id="assignments">              
+                <h1 class="text-2xl font-bold mb-4">ASSIGNMENTS</h1>
+                <ul>
+                    {% for file in file_assignments %}
+                    <li>
+                        <form class="download-form" 
+                              action="#" 
+                              method="post" 
+                              data-course="digitalmarketing" 
+                              data-file-type="recordings" 
+                              data-filename="{{ file }}">
+                            <button type="submit" class="btn-link" enctype="multipart/form-data" accept=".txt,.pdf,.png,.jpg,.jpeg,.gif">{{ file }}</button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>                                                                
+            </div>
+            <div class="bg-blue-800 text-white p-6 rounded-lg mb-6 overflow-y-scroll h-full text-center" id="assessments">              
+                <h1 class="text-2xl font-bold mb-4">ASSESSMENTS</h1>
+                <ul>
+                    {% for file in file_assessments %}
+                    <li>
+                        <form class="download-form" 
+                              action="#" 
+                              method="post" 
+                              data-course="digitalmarketing" 
+                              data-file-type="assessments" 
+                              data-filename="{{ file }}">
+                            <button type="submit" class="btn-link" enctype="multipart/form-data" accept=".txt,.pdf,.png,.jpg,.jpeg,.gif">{{ file }}</button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <a id="assessmentLink" href="/assessments/{{ current_user.course }}" class="btn-link">View Assessments</a>
+                                                                
+            </div>
+           
+        </div>
+    </div>
+    <script>
+    document.getElementById('upload-btn').addEventListener('click', function() {
+        var fileInput = document.getElementById('file-upload');
+        var file = fileInput.files[0];
+        if (file) {
+            var formData = new FormData();
+            formData.append('profile_image', file);
+            
+            fetch('/upload_profile_image', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('profile-image').src = data.profile_image_url;
+                    alert('Profile image uploaded successfully.');
+                } else {
+                    alert('Failed to upload profile image.');
+                }
+            })
+            .catch(error => {
+                console.error('There was an error with the fetch operation:', error);
+            });
+        } else {
+            alert('No file selected.');
+        }
+    });
+    </script>
+    <script>
+        function scrollToSection(sectionId) {
+            console.log("Scrolling to section:", sectionId);
+            var section = document.getElementById(sectionId);
+            console.log("Section element:", section);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const editBtn = document.getElementById('edit-profile-btn');
+            const fileUpload = document.getElementById('file-upload');
+            const uploadBtn = document.getElementById('upload-btn');
+    
+            editBtn.addEventListener('click', function() {
+                fileUpload.style.display = 'block';
+                uploadBtn.style.display = 'block';
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const downloadForms = document.querySelectorAll('.download-form');
+        
+            downloadForms.forEach(form => {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+        
+                    const filename = this.dataset.filename;
+                    const course = this.dataset.course;
+                    const file_type = this.dataset.fileType; // Corrected variable name
+        
+                    fetch(`uploads/${course}/${file_type}/${filename}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('File not found');
+                            }
+                            return response.blob();
+                        })
+                        .then(blob => {
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.style.display = 'none';
+                            a.href = url;
+                            a.download = filename;
+        
+                            document.body.appendChild(a);
+                            a.click();
+        
+                            window.URL.revokeObjectURL(url);
+                        })
+                        .catch(error => {
+                            console.error('Error downloading file:', error);
+                        });
+                });
+            });
+        });        
+    </script>
+    <script>
+                // Get the current date and time
+        var currentDate = new Date();
+        var formattedDate = currentDate.toLocaleString(); // You can format the date as per your requirement
+
+        // Find the link element by its ID
+        var assessmentLink = document.getElementById("assessmentLink");
+
+        // Set the new text content to the current date and time
+        assessmentLink.textContent = "View Assessments (" + formattedDate + ")";
+
+    </script>
+</body>
+</html>                        

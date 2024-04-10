@@ -1,0 +1,5 @@
+{
+    "service": {
+      "command": "python run.py"
+    }
+  }

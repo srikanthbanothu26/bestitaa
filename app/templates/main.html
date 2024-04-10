@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel='stylesheet' href="static\css\first.css">
+</head>
+
+<body class="bg-black">
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center">
+                <h1 class="text-white text-2xl font-bold text-gradient">B E S T </h1>
+                <h2 class="text-white text-2xl font-bold ml-4">IT Academy</h2>
+            </div>
+            <form method="post" action="/">
+                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md">BACK</button>
+            </form>
+        </div>
+        <div class="bg-gray-800 bg-opacity-70 rounded-lg p-6 mt-8">
+            {% if user_course %}
+            <h2 class="text-2xl text-green-500 font-bold mb-4">Welcome to {{ user_course.capitalize() }} Course</h2>
+            <a href="/{{user_course}}_course" class="text-2xl bg-green-600 rounded-md p-1 m-2 hover:bg-rose-600">tap here</a>
+            {% if user_course.lower() == "python" %}
+            <p class="text-white text-lg mb-4">Python is a versatile, high-level programming language known for its simplicity, readability, and flexibility. It offers a wide range of features and capabilities that make it suitable for various applications, from web development and data analysis to artificial intelligence and scientific computing. Python's elegant syntax and dynamic typing make it easy to learn and use, especially for beginners, while its extensive standard library and active community support provide developers with powerful tools and resources to tackle complex problems efficiently. One of Python's key strengths lies in its broad range of applications. It serves as a scripting language for automating tasks, a rapid prototyping tool for software development, and a robust framework for building scalable web applications. Additionally, Python's ecosystem includes numerous libraries and frameworks tailored to specific domains, such as Django and Flask for web development, NumPy and Pandas for data manipulation, and TensorFlow and PyTorch for machine learning and deep learning. Its cross-platform compatibility and seamless integration with other programming languages further enhance its appeal, making Python a popular choice for developers across industries and skill levels.</p>
+            {% elif user_course.lower() == "java" %}
+            <p class="text-white text-lg mb-4">Java is a high-level, object-oriented programming language known for its versatility, portability, and robustness. Developed by Sun Microsystems (now owned by Oracle Corporation), Java is designed to be platform-independent, meaning that Java programs can run on any device or operating system with a Java Virtual Machine (JVM). This is made possible by compiling Java code into bytecode, which is then executed by the JVM. Java's object-oriented nature allows developers to create modular, reusable code by organizing functionality into classes and objects. It supports features like inheritance, polymorphism, encapsulation, and abstraction, enabling developers to build complex applications efficiently. Java is widely used in various domains, including web development, enterprise applications, mobile app development (Android), scientific computing, and more. Its extensive standard library provides predefined classes and methods for common tasks, making it easier for developers to build applications quickly. Additionally, Java's strong community support, extensive documentation, and plethora of third-party libraries and frameworks contribute to its popularity and ease of development. With its emphasis on simplicity, reliability, and scalability, Java remains one of the most widely adopted programming languages worldwide, powering countless software systems and applications.</p>
+            {% elif user_course.lower() == "testingtools" %}
+            <p class="text-white text-lg mb-4">Testing tools are software applications used by software testers to automate, manage, and execute tests on software applications. These tools facilitate various types of testing, including functional, performance, security, and usability testing. Popular testing tools include Selenium for web automation testing, JUnit and NUnit for unit testing in Java and .NET environments respectively, TestComplete is another widely used tool for automated GUI testing, supporting desktop, web, and mobile applications. Performance testing tools like JMeter and LoadRunner help assess the performance and scalability of software under different conditions. Continuous integration tools like Jenkins and Travis CI are also essential for automating the testing process as part of the development pipeline.</p>
+            {% elif user_course.lower() == "digitalmarketing" %}
+            <p class="text-white text-lg mb-4">Digital marketing encompasses all marketing efforts conducted online to promote products or services. It leverages various digital channels such as search engines, social media, email, and websites to reach potential customers. Strategies in digital marketing often include search engine optimization (SEO) to improve visibility in search results. Paid advertising, commonly through platforms like Google Ads and social media ads, is another key aspect of digital marketing. Content marketing plays a crucial role, focusing on creating and distributing valuable, relevant content to attract and engage a target audience. Email marketing remains an effective method for nurturing leads and maintaining customer relationships. Social media marketing involves creating and sharing content on social media platforms to increase brand awareness and drive traffic. Analytics tools are integral to digital marketing, providing insights into audience behavior and campaign performance for continuous optimization.</p>
+            {% endif %}
+            {% else %}
+            <p class="text-white text-lg mb-4">No course selected. Please choose a course to explore.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>

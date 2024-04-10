@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEST IT ACADEMY</title>
+    <link rel="stylesheet"  href="static\css\first.css">
+    <link rel="icon" href="" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-qf97I+0o3+D7fK2VFcFhJjRpKP5jWfD5zNhm1Tjo+T8TziqUDG+ThQo2rhJlF+8u" crossorigin="anonymous">
+</head>
+<body class="cursor-pointer"> <!--top-->
+    <div class="first bg-gradient-to-r from-blue-800 to-rose-500 py-4 fixed w-full" id="home">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="logo flex items-center">
+                <a href="/" class="flex items-center">
+                    <h1 class="text-2xl font-bold text-white text-gradient">BEST</h1>
+                    <h2 class="text-2xl font-bold text-white ml-4 "> IT ACADEMY</h2>
+                </a>
+            </div>
+            <nav class="navigation flex items-center gap-8">
+                <ul class="flex gap-6">
+                    <li class="nav-item">
+                        <a href="/"  class="text-white font-semibold hover:text-gray-300 transition">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" onclick="scrollToSection(event, 'about')" class="text-white font-semibold hover:text-gray-300 transition">ABOUT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#COURSES" onclick="scrollToSection(event, 'COURSES')" class="text-white font-semibold hover:text-gray-300 transition">COURSES</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" onclick="scrollToSection(event, 'contact')" class="text-white font-semibold hover:text-gray-300 transition">CONTACT</a>
+                    </li>
+                </ul>
+                <div class="flex gap-4">
+                    <form method="POST" action='/student_registration'>
+                        <button type="submit" class="text-white font-semibold bg-transparent border border-white py-2 px-4 rounded-full hover:bg-white hover:text-blue-800 transition duration-300">REGISTRATION</button>
+                    </form>
+                    <form method="POST" action='/student_login'>
+                        <button type="submit" class="text-white font-semibold bg-transparent border border-white py-2 px-4 rounded-full hover:bg-white hover:text-blue-800 transition duration-300">LOGIN</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+    
+    <div class="xy bg-cover bg-no-repeat pt-44 pb-10 object-cover bg-center" style="background-image: url('https://assets-global.website-files.com/6418039f61e2dee88d2282fa/64ba497a996fdf73d1951964_Frame%2034.webp');">
+        <div class="bg-opacity-70 py-24">
+            <div class="container mx-auto text-white">
+                <h1 class="text-5xl font-bold text-center mb-8">Welcome to BEST IT ACADEMY</h1>
+                <p class="text-lg font-semibold text-center mb-12">Where Innovation Meets Expertise!</p>
+                <div class="flex justify-center gap-8">
+                    <form method="POST" action='/student_registration'>
+                        <button type="submit" class="w-48 h-16 bg-blue-600 hover:bg-blue-700 text-white text-xl font-semibold rounded-full shadow-lg transition duration-300">Get Started</button>
+                    </form>
+                    <a  href="/pics" class="flex items-center bg-transparent hover:bg-gray-800 text-white text-xl font-semibold rounded-full shadow-lg transition duration-300 px-6 py-3 border border-white">Explore Photos and Videos</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="COURSES" class="py-10 px-4 bg-cover object-cover bg-center border-4" style="background-image:url('')">
+        <h1 class="text-4xl font-bold text-center  mb-8 bg-blue-800 text-white p-2">Explore Our Courses</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <!-- Python Course -->
+            <div class="course-card shadow-lg rounded-lg overflow-hidden bg-gray-300">
+                <img src="https://5.imimg.com/data5/QY/TP/MZ/SELLER-10578244/python-training-course.jpeg" alt="Python Course Image" class="h-48 object-cover object-center w-full p-2">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2">Python</h2>
+                    <p class="text-gray-700 mb-4"><i class="fas fa-clock"></i> 6 months</p>
+                    <a href="/python_info" class="block w-full text-center py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300">Learn More</a>
+                </div>
+            </div>
+    
+            <!-- Java Course -->
+            <div class="course-card shadow-lg rounded-lg overflow-hidden bg-gray-300">
+                <img src="https://st2.depositphotos.com/1004174/7566/i/450/depositphotos_75664409-stock-photo-programming-concept.jpg" alt="Java Course Image" class="h-48 object-cover object-center w-full p-2">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2">Java</h2>
+                    <p class="text-gray-700 mb-4"><i class="fas fa-clock"></i> 6 months</p>
+                    <a href="/java_info" class="block w-full text-center py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300">Learn More</a>
+                </div>
+            </div>
+    
+            <!-- Testing Tools Course -->
+            <div class="course-card shadow-lg rounded-lg overflow-hidden bg-gray-300">
+                <img src="https://profoundedutech.com/blog/wp-content/uploads/2019/12/No-3.png" alt="Testing Tools Image" class="h-48 object-cover w-full object-center p-2">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2">Testing Tools</h2>
+                    <p class="text-gray-700 mb-4"><i class="fas fa-clock"></i> 6 months</p>
+                    <a href="/testingtools_info" class="block w-full text-center py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300">Learn More</a>
+                </div>
+            </div>
+    
+            <!-- Digital Marketing Course -->
+            <div class="course-card shadow-lg rounded-lg overflow-hidden bg-gray-300">
+                <img src="https://img.freepik.com/free-photo/digital-marketing-with-icons-business-people_53876-94833.jpg?size=626&ext=jpg" alt="Digital marketing image" class="h-48 object-cover w-full object-center p-2">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2">Digital Marketing</h2>
+                    <p class="text-gray-700 mb-4"><i class="fas fa-clock"></i> 6 months</p>
+                    <a href="digitalmarketing_info" class="block w-full text-center py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-gray-100" id="about">
+        <div class="container mx-auto py-12">
+            <div class="grid grid-cols-2 gap-8">
+                <!-- About Section -->
+                <div class="bg-gradient-to-r from-purple-400 to-indigo-600 rounded-lg shadow-md p-6 grid grid-cols-1 gap-10">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800">ABOUT US</h1>
+                    </div>
+                    {% for x in range(8)%}
+                    <div class="grid grid-cols-2 items-center border-4 border-green-600 bg-gradient-to-r from-red-800 to-green-700 rounded-lg">
+                        <div class="w-28 h-28 rounded-full overflow-hidden  border-4 border-white container_1 ml-10">
+                            <img src="static\profile_pics\1.png" alt="Rakesh's Photo" class="w-28 h-28 object-cover">
+                        </div>
+                        <div class="text-slate-300 container_1 bg-gradient-to-r from-green-800 to-red-700 p-2 rounded-md mr-10">
+                            <h3 class="text-2xl font-semibold  mb-2">srikanth</h3>
+                            <ul class="text-lg text-blue-600">BTECH</ul>
+                            <ul class="text-lg ">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                            </ul>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+                <!-- Organization Offers -->
+                <div class="bg-gradient-to-r from-purple-600 to-purple-800 rounded-lg shadow-md p-8 grid grid-cols-1 gap-6">
+                    <h1 class="text-3xl font-bold text-white mb-6">What Our Organization Offers:</h1>
+                    <div class="grid grid-cols-2 gap-x-16 gap-y-6">
+                        <!-- Each Offer -->
+                        <div class="container_1 text-white">
+                            <h4 class="text-lg font-semibold border-b-2">Technical Training:</h4>
+                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                                <li>Courses in programming languages (e.g., Python, Java, etc.).</li>
+                                <li>Software development methodologies and best practices.</li>
+                                <li>Database management and administration.</li>
+                            </ol>
+                        </div>
+                        <div class="container_1 text-white">
+                            <h4 class="text-lg font-semibold border-b-2 ">Soft Skills Development:</h4>
+                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                                <li>Communication and presentation skills.</li>
+                                <li>Team collaboration and leadership.</li>
+                            </ol>
+                        </div>
+                        <div class="container_1 text-white">
+                            <h4 class="text-lg font-semibold  border-b-2">IT Infrastructure Services:</h4>
+                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                                <li>Training on networking concepts.</li>
+                                <li>Cloud computing services (e.g., AWS, Azure).</li>
+                                <li>System administration and maintenance.</li>
+                            </ol>
+                        </div>
+                        <div class="container_1 text-white">
+                            <h4 class="text-lg font-semibold border-b-2">Certification Programs:</h4>
+                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                                <li>Offer recognized certifications in relevant technologies.</li>
+                                <li>Preparation for industry-recognized certifications.</li>
+                            </ol>
+                        </div>
+                        <div class="container_1 text-white">
+                            <h4 class="text-lg font-semibold border-b-2">Quality Assurance and Testing:</h4>
+                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                                <li>Training in software testing and quality assurance.</li>
+                                <li>Test automation techniques.</li>
+                            </ol>
+                        </div>
+                        <div class="container_1 text-white">
+                            <h4 class="text-lg font-semibold  border-b-2">Internship and Placement Assistance:</h4>
+                            <ol class="list-decimal bg-green-600 p-10 rounded-xl " type="1">
+                                <li>Assistance in finding internships.</li>
+                                <li>Placement support for job opportunities.</li>
+                            </ol>
+                        </div>
+                        <div class="container_1 text-white">
+                            <h4 class="text-lg font-semibold border-b-2">DevOps Practices:</h4>
+                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                                <li>Training in DevOps methodologies.</li>
+                                <li>Continuous integration and deployment.</li>
+                            </ol>
+                        </div>
+                        <div class="container_1 text-white">
+                            <h4 class="text-lg font-semibold border-b-2">Mock Interviews and Career Counseling:</h4>
+                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                                <li>Conduct mock interviews to prepare students for real-world scenarios.</li>
+                                <li>Career counseling sessions.</li>
+                            </ol>
+                        </div>
+                        <div class="container_1 text-white">
+                            <h4 class="text-lg font-semibold border-b-2">Digital Marketing:</h4>
+                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                                <li>Courses on digital marketing strategies.</li>
+                                <li>Social media marketing.</li>
+                                <li>Search engine optimization (SEO).</li>
+                            </ol>
+                        </div>
+                        <div class="container_1 text-white">
+                            <h4 class="text-lg font-semibold border-b-2" border-b-2>Facility Access:</h4>
+                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                                <li>Provide access to labs with necessary equipment.</li>
+                                <li>Offer a conducive learning environment with Wi-Fi access.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--bottom-->
+    <div id="contact" class="bg-gray-800 h-64 grid grid-cols-3 bottom-0 w-full text-sm border-t-8 ">
+        <div class="flex flex-col justify-center items-start gap-4 py-8 px-6 text-slate-400">
+            <div class="flex items-center gap-2">
+                <h1 class="text-2xl font-bold text-gradient">BEST</h1>
+                <h2 class="text-2xl font-bold text-white">IT Academy</h2>
+            </div>
+            <h2 class="text-lg">Follow us:</h2>
+            <div class="flex items-center gap-4">
+                <a href="https://www.facebook.com/Bestitacademy" target="_blank" class="text-white hover:text-blue-500 transition duration-300">
+                    <i class="fab fa-facebook-square"></i> Facebook
+                </a>
+                <a href="https://www.instagram.com/bestitacademy/" class="text-white hover:text-pink-500 transition duration-300">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="https://twitter.com/i/flow/login?redirect_after_login=%2FBestitacademy" class="text-white hover:text-blue-400 transition duration-300">
+                    <i class="fab fa-twitter"></i> Twitter
+                </a>
+            </div>
+        </div>
+        <div class="flex items-center justify-center py-8 px-6 text-slate-400">
+            <p class="text-lg">We provide best Corporate level trainings which is first of its kind in Hyderabad, both classroom and online with 100% placement assistance. All our instructors are experts and highly experienced.</p>
+        </div>
+        <div class="flex flex-col justify-center items-start gap-4 py-8 px-6 text-slate-400">
+            <h2 class="text-lg font-semibold">Contact Us:</h2>
+            <a href="https://maps.app.goo.gl/9V9FmPG2jkqQrEWX9" class="text-white hover:text-green-500 transition duration-300">
+                <i class="fas fa-map-marker-alt"></i> 4th Floor, Mithai Wala Building, opp. Metro Pillar Number 1595, Kothapet, Hyderabad, Telangana - 500035
+            </a>
+            <div class="flex items-center gap-4">
+                <p class="text-lg">
+                    <i class="fas fa-phone"></i> <a href="tel:+919989650756" class="text-white hover:text-green-500 transition duration-300">+91-9989650756</a>
+                </p>
+                <p class="text-lg">
+                    <i class="fas fa-phone"></i> <a href="tel:+919908980756" class="text-white hover:text-green-500 transition duration-300">+91-9908980756</a>
+                </p>
+            </div>
+            <a href="mailto:info@bestitacademy.com" class="text-white hover:text-yellow-500 transition duration-300">
+                <i class="fas fa-envelope"></i> info@bestitacademy.com
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        function scrollToSection(event, sectionId) {
+            event.preventDefault(); // Prevent the default action of the click event
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+        
+    </script>     
+</body>
+</html>
