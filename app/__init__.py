@@ -1,13 +1,9 @@
 # app/__init__.py
-from flask import Flask,current_app
+from flask import Flask
 from app.extensions.db import db
 from app.configure import Config
 from app.extensions.login_manager import login_manager
 from app.routes import main, student, faculty, stu_course, uploads,assessments
-
-import os
-secret = os.environ.get('SECRET_KEY')
-print(os.environ.get('DATABASE_URL'))
 
 def create_app():
     server = Flask(__name__)
