@@ -106,116 +106,128 @@
         </div>
     </div>
     
-    <div class="bg-gray-100" id="about">
+    <div class="bg-gray-100 " id="about">
+        <h1 class="text-3xl font-bold text-gray-800 text-center">ABOUT US</h1>
         <div class="container mx-auto py-12">
             <div class="grid grid-cols-2 gap-8">
-                <!-- About Section -->
-                <div class="bg-gradient-to-r from-purple-400 to-indigo-600 rounded-lg shadow-md p-6 grid grid-cols-1 gap-10">
-                    <div>
-                        <h1 class="text-3xl font-bold text-gray-800">ABOUT US</h1>
-                    </div>
-                    {% for x in range(8)%}
-                    <div class="grid grid-cols-2 items-center border-4 border-green-600 bg-gradient-to-r from-red-800 to-green-700 rounded-lg">
-                        <div class="w-28 h-28 rounded-full overflow-hidden  border-4 border-white container_1 ml-10">
-                            <img src="static\profile_pics\1.png" alt="Rakesh's Photo" class="w-28 h-28 object-cover">
+
+                <p class="grid items-center">
+                    The primary motive of our institute is to empower students with technical proficiency, equipping them with the skills and knowledge needed for successful careers in the dynamic and ever-evolving field of information technology. We strive to provide comprehensive education, hands-on training, and industry-relevant experience to ensure that our students are well-prepared to tackle challenges and excel in the IT industry. Our goal is to foster innovation, critical thinking, and adaptability, enabling our students to thrive in an increasingly digital world.
+                </p>
+                
+                <div class="bg-gradient-to-r  rounded-lg shadow-md p-6 grid grid-cols-1">
+                    {% for person in persons %}
+                    <!--bg-gradient-to-r from-red-800 to-green-700 from-purple-400 to-indigo-600 bg-gradient-to-r from-green-800 to-red-700 -->
+                    <div class="grid grid-cols-2">
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="grid grid-cols-1 items-center justify-center text-slate-300 container_1 p-2 bg-amber-900 h-36">
+                                <h3 class="text-xl font-semibold  mb-2">Meet </h3>
+                                <p class="text-3xl text-green-600">mr.{{person.name}}</p> 
+                                <p class="text-sm ">{{person.qualification}}</p>
+                            </div>
+                            <p>
+                                {{person.description}}         
+                            </p>
                         </div>
-                        <div class="text-slate-300 container_1 bg-gradient-to-r from-green-800 to-red-700 p-2 rounded-md mr-10">
-                            <h3 class="text-2xl font-semibold  mb-2">srikanth</h3>
-                            <ul class="text-lg text-blue-600">BTECH</ul>
-                            <ul class="text-lg ">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            </ul>
+                        <div class="h-full overflow-hidden border-l-4 border-10 border-blue-400">
+                            <img src="{{person.image_path}}" alt="Rakesh's Photo" class="h-full">
                         </div>
                     </div>
                     {%endfor%}
                 </div>
-                <!-- Organization Offers -->
-                <div class="bg-gradient-to-r from-purple-600 to-purple-800 rounded-lg shadow-md p-8 grid grid-cols-1 gap-6">
-                    <h1 class="text-3xl font-bold text-white mb-6">What Our Organization Offers:</h1>
-                    <div class="grid grid-cols-2 gap-x-16 gap-y-6">
-                        <!-- Each Offer -->
-                        <div class="container_1 text-white">
-                            <h4 class="text-lg font-semibold border-b-2">Technical Training:</h4>
-                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
-                                <li>Courses in programming languages (e.g., Python, Java, etc.).</li>
-                                <li>Software development methodologies and best practices.</li>
-                                <li>Database management and administration.</li>
-                            </ol>
-                        </div>
-                        <div class="container_1 text-white">
-                            <h4 class="text-lg font-semibold border-b-2 ">Soft Skills Development:</h4>
-                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
-                                <li>Communication and presentation skills.</li>
-                                <li>Team collaboration and leadership.</li>
-                            </ol>
-                        </div>
-                        <div class="container_1 text-white">
-                            <h4 class="text-lg font-semibold  border-b-2">IT Infrastructure Services:</h4>
-                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
-                                <li>Training on networking concepts.</li>
-                                <li>Cloud computing services (e.g., AWS, Azure).</li>
-                                <li>System administration and maintenance.</li>
-                            </ol>
-                        </div>
-                        <div class="container_1 text-white">
-                            <h4 class="text-lg font-semibold border-b-2">Certification Programs:</h4>
-                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
-                                <li>Offer recognized certifications in relevant technologies.</li>
-                                <li>Preparation for industry-recognized certifications.</li>
-                            </ol>
-                        </div>
-                        <div class="container_1 text-white">
-                            <h4 class="text-lg font-semibold border-b-2">Quality Assurance and Testing:</h4>
-                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
-                                <li>Training in software testing and quality assurance.</li>
-                                <li>Test automation techniques.</li>
-                            </ol>
-                        </div>
-                        <div class="container_1 text-white">
-                            <h4 class="text-lg font-semibold  border-b-2">Internship and Placement Assistance:</h4>
-                            <ol class="list-decimal bg-green-600 p-10 rounded-xl " type="1">
-                                <li>Assistance in finding internships.</li>
-                                <li>Placement support for job opportunities.</li>
-                            </ol>
-                        </div>
-                        <div class="container_1 text-white">
-                            <h4 class="text-lg font-semibold border-b-2">DevOps Practices:</h4>
-                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
-                                <li>Training in DevOps methodologies.</li>
-                                <li>Continuous integration and deployment.</li>
-                            </ol>
-                        </div>
-                        <div class="container_1 text-white">
-                            <h4 class="text-lg font-semibold border-b-2">Mock Interviews and Career Counseling:</h4>
-                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
-                                <li>Conduct mock interviews to prepare students for real-world scenarios.</li>
-                                <li>Career counseling sessions.</li>
-                            </ol>
-                        </div>
-                        <div class="container_1 text-white">
-                            <h4 class="text-lg font-semibold border-b-2">Digital Marketing:</h4>
-                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
-                                <li>Courses on digital marketing strategies.</li>
-                                <li>Social media marketing.</li>
-                                <li>Search engine optimization (SEO).</li>
-                            </ol>
-                        </div>
-                        <div class="container_1 text-white">
-                            <h4 class="text-lg font-semibold border-b-2" border-b-2>Facility Access:</h4>
-                            <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
-                                <li>Provide access to labs with necessary equipment.</li>
-                                <li>Offer a conducive learning environment with Wi-Fi access.</li>
-                            </ol>
-                        </div>
-                    </div>
+            </div>
+        </div>
+    </div>
+    <!-- Organization Offers -->
+    <div class="grid grid-cols-2 h-full m-10" style="background-image:url('https://static.wixstatic.com/media/f08bfe_b68251fffa074eb4819aeec3ff0b99ea~mv2.jpg/v1/fill/w_769,h_1393,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/f08bfe_b68251fffa074eb4819aeec3ff0b99ea~mv2.jpg')">
+        <img src="https://static.wixstatic.com/media/f08bfe_b68251fffa074eb4819aeec3ff0b99ea~mv2.jpg/v1/fill/w_769,h_1393,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/f08bfe_b68251fffa074eb4819aeec3ff0b99ea~mv2.jpg">
+        <div class="bg-gradient-to-r from-purple-600 to-purple-800 rounded-lg shadow-md p-8 grid grid-cols-1 gap-6">
+            <p class="bg-white p-10">🌟 Unlock Your Potential at Best IT Academy! 🌟
+
+                Are you ready to embark on an exhilarating journey into the world of information technology? Look no further than Best IT Academy! 🚀</p>
+            <h1 class="text-3xl font-bold text-white mb-6">Why Choose Us?:</h1>
+            <div class="grid grid-cols-2 gap-x-16 gap-y-6">
+                <!-- Each Offer -->
+                <div class="container_1 text-white">
+                    <h4 class="text-lg font-semibold border-b-2">Technical Training:</h4>
+                    <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                        <li>Courses in programming languages (e.g., Python, Java, etc.).</li>
+                        <li>Software development methodologies and best practices.</li>
+                        <li>Database management and administration.</li>
+                    </ol>
+                </div>
+                <div class="container_1 text-white">
+                    <h4 class="text-lg font-semibold border-b-2 ">Soft Skills Development:</h4>
+                    <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                        <li>Communication and presentation skills.</li>
+                        <li>Team collaboration and leadership.</li>
+                    </ol>
+                </div>
+                <div class="container_1 text-white">
+                    <h4 class="text-lg font-semibold  border-b-2">IT Infrastructure Services:</h4>
+                    <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                        <li>Training on networking concepts.</li>
+                        <li>Cloud computing services (e.g., AWS, Azure).</li>
+                        <li>System administration and maintenance.</li>
+                    </ol>
+                </div>
+                <div class="container_1 text-white">
+                    <h4 class="text-lg font-semibold border-b-2">Certification Programs:</h4>
+                    <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                        <li>Offer recognized certifications in relevant technologies.</li>
+                        <li>Preparation for industry-recognized certifications.</li>
+                    </ol>
+                </div>
+                <div class="container_1 text-white">
+                    <h4 class="text-lg font-semibold border-b-2">Quality Assurance and Testing:</h4>
+                    <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                        <li>Training in software testing and quality assurance.</li>
+                        <li>Test automation techniques.</li>
+                    </ol>
+                </div>
+                <div class="container_1 text-white">
+                    <h4 class="text-lg font-semibold  border-b-2">Internship and Placement Assistance:</h4>
+                    <ol class="list-decimal bg-green-600 p-10 rounded-xl " type="1">
+                        <li>Assistance in finding internships.</li>
+                        <li>Placement support for job opportunities.</li>
+                    </ol>
+                </div>
+                <div class="container_1 text-white">
+                    <h4 class="text-lg font-semibold border-b-2">DevOps Practices:</h4>
+                    <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                        <li>Training in DevOps methodologies.</li>
+                        <li>Continuous integration and deployment.</li>
+                    </ol>
+                </div>
+                <div class="container_1 text-white">
+                    <h4 class="text-lg font-semibold border-b-2">Mock Interviews and Career Counseling:</h4>
+                    <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                        <li>Conduct mock interviews to prepare students for real-world scenarios.</li>
+                        <li>Career counseling sessions.</li>
+                    </ol>
+                </div>
+                <div class="container_1 text-white">
+                    <h4 class="text-lg font-semibold border-b-2">Digital Marketing:</h4>
+                    <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                        <li>Courses on digital marketing strategies.</li>
+                        <li>Social media marketing.</li>
+                        <li>Search engine optimization (SEO).</li>
+                    </ol>
+                </div>
+                <div class="container_1 text-white">
+                    <h4 class="text-lg font-semibold border-b-2" border-b-2>Facility Access:</h4>
+                    <ol class="list-decimal bg-green-600 p-10 rounded-xl" type="1">
+                        <li>Provide access to labs with necessary equipment.</li>
+                        <li>Offer a conducive learning environment with Wi-Fi access.</li>
+                    </ol>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <!--bottom-->
-    <div id="contact" class="bg-gray-800 h-64 grid grid-cols-3 bottom-0 w-full text-sm border-t-8 ">
-        <div class="flex flex-col justify-center items-start gap-4 py-8 px-6 text-slate-400">
+    <div id="contact" class="bg-gray-800 h-64 grid grid-cols-3 bottom-0 w-screen text-sm border-t-8 m-0">
+        <div class="grid grid-cols-1 justify-center items-start gap-4 py-8 px-6 text-slate-400">
             <div class="flex items-center gap-2">
                 <h1 class="text-2xl font-bold text-gradient">BEST</h1>
                 <h2 class="text-2xl font-bold text-white">IT Academy</h2>

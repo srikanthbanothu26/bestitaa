@@ -1,6 +1,6 @@
 #app/forms/form.py
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SelectField,SubmitField,DateField
+from wtforms import StringField, PasswordField, SelectField,SubmitField,DateField,TextAreaField
 from wtforms.validators import InputRequired, Email, EqualTo, Length,DataRequired,ValidationError
 import re
 from app.models.models import User
@@ -69,3 +69,8 @@ class PlacementForm(FlaskForm):
     link= StringField('apply link', validators=[DataRequired()])
     submit = SubmitField('Upload')
 
+class PersonForm(FlaskForm):
+    image_path = StringField('Image Path')
+    name = StringField('Name', validators=[DataRequired()])
+    qualification = StringField('Qualification')
+    description = TextAreaField('Description')

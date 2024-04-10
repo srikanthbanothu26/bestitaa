@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Person Details</title>
+</head>
+<body>
+    <h1>Person Details</h1>
+    <table>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Qualification</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        {% for person in persons %}
+        <tr>
+            <td><img src="{{ person.image_path }}" alt="Person Image" style="width:100px;height:100px;"></td>
+            <td>{{ person.name }}</td>
+            <td>{{ person.qualification }}</td>
+            <td>{{ person.description }}</td>
+            <td>
+                <a href="/update_person/{{person.id}}">Update</a>
+                <a href="/delete_person/{{person.id}}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

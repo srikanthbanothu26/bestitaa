@@ -1,8 +1,10 @@
 from flask import Blueprint, render_template, session, redirect, request, flash,jsonify,current_app
 from flask_login import login_required
-from app.models.models import placement,Image
+from app.models.models import placement,Image,Person
 from app.extensions.db import db
+from app.forms.forms import PersonForm
 from werkzeug.utils import secure_filename
+from flask_wtf.csrf import generate_csrf
 import os
 
 
@@ -10,7 +12,9 @@ main_bp = Blueprint("main", __name__)
 
 @main_bp.route('/', methods=["GET", "POST"])
 def index():
-    return render_template("index.html")
+    persons = Person.query.all()
+    print(persons)
+    return render_template("index.html",persons=persons)
 
 @main_bp.route('/main', methods=["GET", "POST"])
 @login_required
@@ -142,3 +146,43 @@ def delete_placement(placement_id):
         return redirect('/admin') # Redirect to the admin page after deletion
     else:
         return jsonify({"error": "Placement not found"}), 404
+
+@main_bp.route('/_profile',methods=['GET','POST'])
+def person():
+    persons = Person.query.all()
+    return render_template('details.html', persons=persons)
+
+@main_bp.route("/add_person",methods=["GET","POST"])
+def add_persons():
+    form = PersonForm()
+    if form.validate_on_submit():
+        new_person = Person(
+            image_path=form.image_path.data,
+            name=form.name.data,
+            qualification=form.qualification.data,
+            description=form.description.data
+        )
+        db.session.add(new_person)
+        db.session.commit()
+        return redirect("/admin")
+    return render_template('add_person.html', form=form)
+
+@main_bp.route('/update_person/<int:id>', methods=['GET', 'POST'])
+def update_person(id):
+    csrf_token=generate_csrf()
+    person = Person.query.filter_by(id=id).first()
+    form = PersonForm(request.form, obj=person) 
+    if form.validate_on_submit() and  request.method=="POST":
+        if person:
+            form.populate_obj(person)
+            db.session.commit()
+            return redirect("/_profile")
+    return render_template('update_person.html', form=form, person=person,csrf_token=csrf_token)  # Pass person to the template
+
+
+@main_bp.route('/delete_person/<int:id>', methods=['GET', 'POST'])
+def delete_person(id):
+    person = Person.query.get(id)
+    db.session.delete(person)
+    db.session.commit()
+    return redirect("/_profile")

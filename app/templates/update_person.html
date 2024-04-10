@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Person</title>
+</head>
+<body>
+    <h1>Update Person</h1>
+    <form action="/update_person/{{person.id}}" method="POST">
+        {{ form.csrf_token }}
+        <label for="image_path">Image Path:</label><br>
+        <input type="text" id="image_path" name="image_path" value="{{ person.image_path }}"><br>
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" value="{{ person.name }}"><br>
+        <label for="qualification">Qualification:</label><br>
+        <input type="text" id="qualification" name="qualification" value="{{ person.qualification }}"><br>
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description">{{ person.description }}</textarea><br>
+        <input type="submit" value="Update">
+    </form>
+</body>
+</html>

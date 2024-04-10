@@ -94,3 +94,12 @@ class Image(db.Model):
     
     def __repr__(self):
         return f"<Image id={self.id}, filename={self.filename}, filepath={self.filepath}>"
+ 
+from sqlalchemy import Text
+
+class Person(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    image_path = db.Column(Text)
+    name = db.Column(db.String(50), nullable=False)
+    qualification = db.Column(db.String(50))
+    description = db.Column(Text)

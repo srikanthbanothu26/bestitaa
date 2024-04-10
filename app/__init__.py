@@ -11,6 +11,7 @@ def create_app():
     login_manager.init_app(server)  # Initialize login manager
     db.init_app(server)
     with server.app_context():
+        db.drop_all()
         db.create_all()
     register_blueprints(server)
     return server
