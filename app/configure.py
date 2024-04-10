@@ -2,8 +2,6 @@ import os
 class Config:
     SECRET_KEY = 'secret-key'
     SQLALCHEMY_DATABASE_URI = "mysql://avnadmin:AVNS_mEQfCEIkupo_GdLjlhc@mysql-323302ad-banothusrikanth267-d588.a.aivencloud.com:26621/defaultdb"
-    
-    
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDERS = {
         'python': {
