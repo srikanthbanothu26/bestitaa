@@ -11,15 +11,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-qf97I+0o3+D7fK2VFcFhJjRpKP5jWfD5zNhm1Tjo+T8TziqUDG+ThQo2rhJlF+8u" crossorigin="anonymous">
 </head>
 <body class="cursor-pointer"> <!--top-->
-    <div class="first bg-gradient-to-r from-blue-800 to-rose-500 py-4 fixed w-full" id="home">
+    <div class="first bg-gradient-to-r from-blue-800 to-rose-500 py-4 fixed w-full sm:text-xl" id="home">
         <div class="container mx-auto flex justify-between items-center">
             <div class="logo flex items-center">
-                <a href="/" class="flex items-center">
-                    <h1 class="text-2xl font-bold text-white text-gradient">BEST</h1>
-                    <h2 class="text-2xl font-bold text-white ml-4 "> IT ACADEMY</h2>
+                <a href="/" class="flex items-center sm:text-xl lg:text-2xl md:text-xl sm:flex-col lg:flex-row">
+                    <h1 class="font-bold text-white text-gradient ">BEST</h1>
+                    <h2 class="font-bold text-white ml-4 sm:ml-2 sm:text-sm"> IT ACADEMY</h2>
                 </a>
             </div>
-            <nav class="navigation flex items-center gap-8">
+            <nav class="navigation flex items-center lg:gap-8 md:gap-6 sm:gap-2 sm:text-sm lg:text-sm md:text-sm">
                 <ul class="flex gap-6">
                     <li class="nav-item">
                         <a href="/"  class="text-white font-semibold hover:text-gray-300 transition">HOME</a>
@@ -63,7 +63,7 @@
     </div>
     <div id="COURSES" class="py-10 px-4 bg-cover object-cover bg-center border-4" style="background-image:url('')">
         <h1 class="text-4xl font-bold text-center  mb-8 bg-blue-800 text-white p-2">Explore Our Courses</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
             <!-- Python Course -->
             <div class="course-card shadow-lg rounded-lg overflow-hidden bg-gray-300">
                 <img src="https://5.imimg.com/data5/QY/TP/MZ/SELLER-10578244/python-training-course.jpeg" alt="Python Course Image" class="h-48 object-cover object-center w-full p-2">
@@ -109,7 +109,7 @@
     <div class="bg-gray-100 " id="about">
         <h1 class="text-3xl font-bold text-gray-800 text-center">ABOUT US</h1>
         <div class="container mx-auto py-12">
-            <div class="grid grid-cols-2 gap-8">
+            <div class="grid lg:grid-cols-2 md:grid-cols-2  sm:grid-cols-1 gap-8">
 
                 <p class="grid items-center">
                     The primary motive of our institute is to empower students with technical proficiency, equipping them with the skills and knowledge needed for successful careers in the dynamic and ever-evolving field of information technology. We strive to provide comprehensive education, hands-on training, and industry-relevant experience to ensure that our students are well-prepared to tackle challenges and excel in the IT industry. Our goal is to foster innovation, critical thinking, and adaptability, enabling our students to thrive in an increasingly digital world.
@@ -139,7 +139,7 @@
         </div>
     </div>
     <!-- Organization Offers -->
-    <div class="grid grid-cols-2 h-full m-10 bg-no-repeat bg-cover overflow-hidden" style="background-image:url('https://static.wixstatic.com/media/f08bfe_b68251fffa074eb4819aeec3ff0b99ea~mv2.jpg/v1/fill/w_769,h_1393,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/f08bfe_b68251fffa074eb4819aeec3ff0b99ea~mv2.jpg')">
+    <div class="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 h-full m-10 bg-no-repeat bg-cover overflow-hidden" style="background-image:url('https://static.wixstatic.com/media/f08bfe_b68251fffa074eb4819aeec3ff0b99ea~mv2.jpg/v1/fill/w_769,h_1393,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/f08bfe_b68251fffa074eb4819aeec3ff0b99ea~mv2.jpg')">
         <p class="p-10">
             🌟 Unlock Your Potential at Best IT Academy! 🌟
             Are you ready to embark on an exhilarating journey into the world of information technology? Look no further than Best IT Academy! 🚀
@@ -226,11 +226,11 @@
     </div>
 
     <!--bottom-->
-    <div id="contact" class="bg-gray-800 h-64 grid grid-cols-3 bottom-0 w-screen text-sm border-t-8 m-0">
+    <div id="contact" class="bg-gray-800 h-64 grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-3 md:w-full sm:w-full sm:h-full md:h-full bottom-0 w-screen lg:text-sm md:text-sm md:text-sm border-t-8 m-0 ">
         <div class="grid grid-cols-1 justify-center items-start gap-4 py-8 px-6 text-slate-400">
-            <div class="flex items-center gap-2">
-                <h1 class="text-2xl font-bold text-gradient">BEST</h1>
-                <h2 class="text-2xl font-bold text-white">IT Academy</h2>
+            <div class="flex lg:flex-row   sm:flex-col md:flex-row gap-2 lg:text-2xl sm:text-xl md:text-xl">
+                <h1 class="font-bold text-gradient">BEST</h1>
+                <h2 class="font-bold text-white">IT Academy</h2>
             </div>
             <h2 class="text-lg">Follow us:</h2>
             <div class="flex items-center gap-4">
@@ -253,7 +253,7 @@
             <a href="https://maps.app.goo.gl/9V9FmPG2jkqQrEWX9" class="text-white hover:text-green-500 transition duration-300">
                 <i class="fas fa-map-marker-alt"></i> 4th Floor, Mithai Wala Building, opp. Metro Pillar Number 1595, Kothapet, Hyderabad, Telangana - 500035
             </a>
-            <div class="flex items-center gap-4">
+            <div class="flex lg:flex-row sm:flex-col md:flex-col items-center gap-4 ">
                 <p class="text-lg">
                     <i class="fas fa-phone"></i> <a href="tel:+919989650756" class="text-white hover:text-green-500 transition duration-300">+91-9989650756</a>
                 </p>
