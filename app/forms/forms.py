@@ -24,6 +24,16 @@ class StudentLoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password= PasswordField('Password', validators=[DataRequired()])
     course = SelectField('Select Course', choices=[('python', 'Python'),('java', 'Java'),('testingtools','testingtools'),('digitalmarketing','digitalmarketing')], validators=[DataRequired()])
+    
+class forget_passwordform(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    
+class update_passwordForm(FlaskForm):
+    password= PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    
+    
+
 
 class FacultyForm(FlaskForm):
     email = StringField('Email', validators=[InputRequired(), Email()])

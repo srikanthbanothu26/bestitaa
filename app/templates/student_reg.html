@@ -6,48 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REGISTRATION</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet"  href="static\css\first.css">
 </head>
-<body class="bg-black font-sans  flex justify-center h-screen items-center ">
-    <div class=" items-center flex flex-col mt-2 border-2 border-blue-600 ">
-        <div class="x text-white bg-black border border-gray-300 pl-2 pr-2 rounded-lg shadow-md items-center m-4">
-            <form method="POST" class="space-y-2" action="/student_registration">
-                <a class="flex justify-end" href="/">BACK</a>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto flex justify-center items-center h-screen">
+        <div class="grid grid-cols-2 bg-white shadow-lg rounded-lg overflow-hidden w-full flex">
+            <img src="https://www.shutterstock.com/image-photo/portrait-attractive-cheerful-girl-demonstrating-600nw-2113649489.jpg" alt="Image" class="hidden lg:block h-full w-full object-cover object-center flex-gow">
+            <form method="POST" action="/student_registration" class="h-96 p-4 grid justify-center items-center">
+                <a href="/" class="block text-right text-blue-600 mb-2">BACK</a>
                 {{ form.csrf_token }}
-                <div class="pb-8">
-                    <ul class="text-center text-2xl font-bold text-gradient">BEST</ul>
-                    <ul class="text-center ">IT ACADEMY</ul>
+                <div class="text-center pb-4">
+                    <h1 class="text-3xl font-bold text-gradient">BEST</h1>
+                    <h2 class="text-xl">IT ACADEMY</h2>
                 </div>
-                <div class="grid justify-center">
-                    <img src="static\profile_pics\profile.png" class="h-20 w-20 rounded-full border-2 border-white overflow-hidden">
+                <div class="grid-cols-2 grid items-center justify-center mb-2 gap-10">
+                    <div>
+                        <label for="username" class="block text-gray-700">Username</label>
+                        {{ form.username(class="w-full p-2 rounded border-2 border-gray-300", placeholder="Enter your name") }}
+                    </div>
+                    <div>
+                        <label for="course" class="block text-gray-700">Course</label>
+                        {{ form.course(class="w-full p-2 rounded border-2 border-gray-300") }}
+                    </div>
                 </div>
-                <div class="flex flex-col gap-4">
-                    <div class="form-group grid grid-cols-3 items-center">
-                        {{ form.username.label }}
-                        <p class="text-black col-span-2">{{ form.username(class="w-full p-2 rounded border-2 border-gray-300 col-span-2",placeholder="Enter your name" )}}</p>
+                <div class="mb-2">
+                    <label for="email" class="block text-gray-700">Email</label>
+                    {{ form.email(class="w-full p-2 rounded border-2 border-gray-300", placeholder="Enter your email id") }}
+                </div>
+                <div class="mb-2 grid grid-cols-2 items-center gap-10">
+                    <div>
+                        <label for="password" class="block text-gray-700">Password</label>
+                        {{ form.password(id="password", class="w-full p-2 rounded border-2 border-gray-300", placeholder="Enter more than 6 characters") }}
                     </div>
-                    <div class="form-group  grid grid-cols-3 items-center">
-                        {{ form.email.label }}
-                        <p class="text-black col-span-2">{{ form.email(class="w-full p-2 rounded border-2 col-span-2 border-gray-300",placeholder="enter your email id") }}</p>
+                    <div>
+                        <label for="confirm_password" class="block text-gray-700">Confirm Password</label>
+                        {{ form.confirm_password(id="confirm_password", class="w-full p-2 rounded border-2 border-gray-300", placeholder="Enter more than 6 characters") }}
                     </div>
-                    <div class="form-group grid grid-cols-3 items-center">
-                        {{ form.password.label }}
-                        <p class="text-black col-span-2">{{ form.password(class="w-full p-1 rounded border-2  col-span-2 border-gray-300",placeholder="enter more than 6 characters") }}</p>
-                    </div>
-                    <div class="form-group grid grid-cols-3 items-center">
-                        {{ form.confirm_password.label(class="mr-2") }}
-                        <p class="text-black col-span-2">{{ form.confirm_password(class="w-full p-2 rounded border-2 col-span-2 border-gray-300",placeholder="enter more than 6 characters") }}</p>
-                    </div>
-                    <div class="form-group grid grid-cols-3 items-center">
-                        {{ form.course.label }}
-                        <p class="text-black col-span-2">{{ form.course(class="w-full p-2 rounded border-2  col-span-2 border-gray-300") }}</p>
-                    </div>
-                    <div class="flex justify-center ">
-                        <button type="submit" class="bg-rose-600 text-white rounded hover:bg-green-600 mb-2 p-2">SIGN-UP</button>
-                    </div>
+                </div>
+                <div class="grid grid-cols-2 justify-center ml-10 mr-10 items-center mt-4">
+                    {% if user_exists %}
+                        <p class="text-red-500">Username or email already exists. Please choose different credentials.</p>
+                    {% endif %}
+                    <button type="submit" onclick="return validateForm()" class="rounded-xl hover:bg-green-700 border-2 pt-2 pb-2 border-blue-800 ml-4">SIGN-UP</button>
                 </div>
             </form>
         </div>
     </div>
+
+    <script>
+        function validateForm() {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirm_password").value;
+            if (password !== confirmPassword || password.length < 6) {
+                document.getElementById("passwordMatchMessage").classList.remove("hidden");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </body>
+
 </html>

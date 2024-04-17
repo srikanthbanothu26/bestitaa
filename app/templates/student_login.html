@@ -5,39 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOGIN</title>
-    <link rel="stylesheet"  href="static\css\first.css">
+    <link rel="stylesheet" href="static\css\first.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-black font-sans flex justify-center items-center h-screen">
-    <div class="flex flex-col">
-        <div class="x border border-gray-300 pl-2 pr-2 pb-1 rounded-lg shadow-md mt-1 w-96 items-center">
-            <form method="POST" class="space-y-4" action="/student_login">
-                <a class="flex justify-end" href="/">BACK</a>
+<body class="bg-blue-600 font-sans grid justify-center items-center h-screen">
+    <div class="grid grid-cols-1">
+        <div class="x border bg-white pl-2 pr-2 pb-1 rounded-lg shadow-md mt-1 w-full h-full grid items-center">
+            <form method="POST" class="space-y-4 p-10" action="/student_login">
+                <a class="flex justify-end text-sm mt-1" href="/"><< BACK</a>
                 {{ form.csrf_token }}
-                <h1 class="text-center text-3xl font-bold text-gradient">BEST</h1>
-                <ul class="text-center text-white">IT ACADEMY</ul>
+                <h1 class="text-center text-4xl font-bold mb-4">BEST IT ACADEMY</h1>
                 <div class="flex justify-center">
-                    <img src="static\profile_pics\profile.png" class="h-20 w-20 rounded-full border-2 border-white">
+                    <img src="static\profile_pics\profile.png" class="h-20 w-20 rounded-full border-4 border-white">
                 </div>
                 <div class="form-group grid grid-cols-3">
-                    <p class='text-white'>{{ form.username.label }}</p>
-                    {{ form.username(class="w-full px-2 py-2 rounded border border-gray-300 col-span-2",placeholder="Enter your name" )}}
+                    <label for="username" class=" col-span-1">{{ form.username.label }}</label>
+                    {{ form.username(class="w-full px-2 py-2 rounded border border-gray-300 col-span-2", placeholder="Enter your name")}}
                 </div>
                 <div class="form-group grid grid-cols-3">
-                    <p class='text-white'>{{ form.password.label }}</p>
-                    {{ form.password(class="w-full px-4 py-2 rounded border border-gray-300 col-span-2",placeholder="enter more than 6 characters") }}
+                    <label for="password" class="col-span-1">{{ form.password.label }}</label>
+                    {{ form.password(class="w-full px-4 py-2 rounded border border-gray-300 col-span-2", placeholder="Enter more than 6 characters")}}
                 </div>
-
                 <div class="form-group grid grid-cols-3">
-                    <p class='text-white'>{{ form.course.label }}</p>
-                    {{ form.course(class="w-full px-4 py-2 rounded border border-gray-300 col-span-2") }}
+                    <label for="course" class="col-span-1">{{ form.course.label }}</label>
+                    {{ form.course(class="w-full px-4 py-2 rounded border border-gray-300 col-span-2")}}
                 </div>
-                <div class="flex justify-center ">
-                    <button type="submit" class="bg-rose-600 text-white px-6 py-2 rounded hover:bg-green-600">Login</button>
+                <div class="grid items-center justify-center ml-10 mr-10">
+                    <button type="submit" class="border-blue-800 border-2 px-6 py-2 rounded-lg hover:bg-green-600 ml-2 hover:text-white">Login</button>
                 </div>
+                <div class="grid justify-center">
+                    <a href="/forgot_password">forgot password</a>
+                </div>
+                <p class="text-center">Don't have an account? <a href="/student_registration">Sign up</a></p>
             </form>
         </div>
     </div>
 </body>
+
 </html>

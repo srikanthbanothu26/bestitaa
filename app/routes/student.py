@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, flash, request,session,jsonify,url_for,current_app
-from app.forms.forms import Student_RegistrationForm, StudentLoginForm
+from app.forms.forms import Student_RegistrationForm, StudentLoginForm,forget_passwordform,update_passwordForm
 from app.oper.oper import check_user_exists, add_user
 from flask_bcrypt import Bcrypt
 from app.models.models import User
@@ -8,29 +8,31 @@ import os
 from app.extensions.db import db
 from werkzeug.utils import secure_filename
 from flask_wtf.csrf import generate_csrf
+from sqlalchemy.exc import IntegrityError
 
 bcrypt = Bcrypt() 
 student_bp = Blueprint('student', __name__)
 
 
 PROFILE_PICS_FOLDER = 'static/profile_pics'
-
 @student_bp.route('/student_registration', methods=["GET", "POST"])
 def registration():
     form = Student_RegistrationForm(request.form)
     csrf_token = generate_csrf()
+    user_exists = False
     if form.validate_on_submit():
         username = form.username.data
         email = form.email.data
         password = form.password.data
+        confirm_password = form.confirm_password.data
         course = form.course.data
         profile_image = form.profile_image.data
         filename = None
 
         if profile_image:
-        # Generate a secure filename based on user ID
-            filename = f"{current_user.id}.png"  # Assuming user ID is available after registration
-            # Save the profile image to the upload folder
+            
+            filename = f"{current_user.id}.png"  
+            
             profile_image_path = os.path.join(PROFILE_PICS_FOLDER, filename)
             profile_image.save(profile_image_path)
             
@@ -38,15 +40,19 @@ def registration():
             current_user.profile_image = filename
             db.session.commit()
             
-        if not check_user_exists(username, email, course):
-            hashed_password = bcrypt.generate_password_hash(password).decode("utf-8")
-            add_user(username, email, hashed_password, course,profile_image=filename)
-            flash("Registration successful. Please log in.")
-            return redirect('/student_login')
-        else:
-            flash("Username or email already exists. Please choose different credentials.")
+        try:
+            if not check_user_exists(username, email, course) and password == confirm_password:
+                hashed_password = bcrypt.generate_password_hash(password).decode("utf-8")
+                add_user(username, email, hashed_password, course, profile_image=filename)
+                flash("Registration successful. Please log in.")
+                return redirect('/student_login')
+            else:
+                user_exists = True
+        except IntegrityError:
+            user_exists = True
             
-    return render_template('student_reg.html', form=form,csrf_token=csrf_token)
+    return render_template('student_reg.html', form=form, csrf_token=csrf_token, user_exists=user_exists)
+
 
 @student_bp.route("/student_login", methods=["GET", "POST"])
 def login():
@@ -94,3 +100,42 @@ def upload_profile_image():
             return jsonify({'success': False, 'message': 'Failed to upload profile image'}), 500
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
+    
+    
+@student_bp.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    form = forget_passwordform(request.form)
+    if form.validate_on_submit():
+        email = form.email.data
+        print(email)
+        user = User.query.filter_by(email=email).first()
+        if user:
+            session['reset_email'] = email  # Set the email in the session
+            return redirect('/forgot_password_verify_email')
+        else:
+            return redirect("/student_registration")
+    return render_template('forgot_password_email.html', form=form)
+
+
+# Route to handle the verification of email for forgot password
+@student_bp.route('/forgot_password_verify_email', methods=['GET', 'POST'])
+def forgot_password_verify_email():
+    form = update_passwordForm(request.form)  # Instantiate the form object
+    if form.validate_on_submit():
+        new_password = form.password.data
+        confirm_password = form.confirm_password.data
+        if new_password == confirm_password:
+            email = session.get('reset_email')
+            user = User.query.filter_by(email=email).first()
+            if user:
+                # Update the password for the user
+                user.password_hash = bcrypt.generate_password_hash(new_password).decode('utf-8')
+                db.session.commit()
+                flash("Password updated successfully. Please log in.")
+                session.pop('reset_email')
+                return redirect('/student_login')
+            else:
+                flash("User not found. Please try again.", "error")
+        else:
+            flash("Passwords do not match. Please try again.", "error")
+    return render_template('forgot_password_update.html', form=form)
