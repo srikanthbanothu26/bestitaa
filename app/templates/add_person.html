@@ -11,8 +11,8 @@
         {{ form.csrf_token }}
         <div>
             {{ form.image_path.label }}<br>
-            {{ form.image_path }}
-        </div>
+            <input type="file" id="image_path" name="image_path" accept="image/*">
+        </div>        
         <div>
             {{ form.name.label }}<br>
             {{ form.name }}
