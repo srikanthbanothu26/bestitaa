@@ -51,21 +51,23 @@
                 <table class="text-black border-collapse w-full">
                     <thead>
                         <tr>
-                            <th class="border border-gray-300 px-4 py-2">Date</th>
-                            <th class="border border-gray-300 px-4 py-2">Company Name</th>
-                            <th class="border border-gray-300 px-4 py-2">Company Details</th>
-                            <th class="border border-gray-300 px-4 py-2">Last Date to Apply</th>
-                            <th class="border border-gray-300 px-4 py-2">Apply</th>
+                            <th class="border border-gray-300 px-2 py-2">Date</th>
+                            <th class="border border-gray-300 px-2 py-2">Company Name</th>
+                            <th class="border border-gray-300 px-2 py-2">Company Details</th>
+                            <th class="border border-gray-300 px-2 py-2">Last Date to Apply</th>
+                            <th class="border border-gray-300 px-2 py-2">Apply</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for placement in digitalmarketing_course_placements %}
                         <tr>
-                            <td class="border border-gray-300 px-4 py-2">{{ placement.Date }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ placement.placement_company_name }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ placement.company_details }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ placement.last_date_to_apply }}</td>
-                            <td class="border border-gray-300 px-4 py-2"><a href={{ placement.link }}>{{ placement.link }}</a></td>
+                            <td class="border border-gray-300 px-2 py-2">{{ placement.Date }}</td>
+                            <td class="border border-gray-300 px-2 py-2">{{ placement.placement_company_name }}</td>
+                            <td class="border border-gray-300 px-2 py-2">{{ placement.company_details }}</td>
+                            <td class="border border-gray-300 px-2 py-2">{{ placement.last_date_to_apply }}</td>
+                            <td class="border border-gray-300 px-2 py-2 w-16">
+                                <a href={{ placement.link }} class="block overflow-hidden whitespace-nowrap text-xs max-w-xs">{{ placement.link }}</a>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
