@@ -17,7 +17,7 @@
         </tr>
         {% for person in persons %}
         <tr>
-            <td><img src="{{ person.image_path }}" alt="Person Image" style="width:100px;height:100px;"></td>
+            <td><img src="{{ url_for('static', filename='profiles/' + person.image_path) }}" alt="Person Image" style="width:100px;height:100px;">            </td>
             <td>{{ person.name }}</td>
             <td>{{ person.qualification }}</td>
             <td>{{ person.description }}</td>

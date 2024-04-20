@@ -151,20 +151,27 @@ def delete_placement(placement_id):
 def person():
     persons = Person.query.all()
     return render_template('details.html', persons=persons)
+import os
 
-@main_bp.route("/add_person",methods=["GET","POST"])
-def add_persons():
+@main_bp.route('/add_person', methods=['GET', 'POST'])
+def add_person():
     form = PersonForm()
     if form.validate_on_submit():
-        new_person = Person(
-            image_path=form.image_path.data,
-            name=form.name.data,
-            qualification=form.qualification.data,
-            description=form.description.data
-        )
-        db.session.add(new_person)
-        db.session.commit()
-        return redirect("/admin")
+        image_file = request.files['image_path']
+        if image_file:
+            # Save the uploaded file to a directory
+            image_path = os.path.join(current_app.root_path, 'static', 'profiles', image_file.filename)
+            image_file.save(image_path)
+            image_path1=image_file.filename
+            new_person = Person(
+                image_path=image_path1,  # Save the path to the image file
+                name=form.name.data,
+                qualification=form.qualification.data,
+                description=form.description.data
+            )
+            db.session.add(new_person)
+            db.session.commit()
+            return redirect("/admin")
     return render_template('add_person.html', form=form)
 
 @main_bp.route('/update_person/<int:id>', methods=['GET', 'POST'])

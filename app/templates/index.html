@@ -139,7 +139,7 @@
                             </p>
                         </div>
                         <div class="h-full overflow-hidden border-l-4 border-10 border-blue-400">
-                            <img src="{{person.image_path}}" alt="Rakesh's Photo" class="h-full">
+                            <img src="{{ url_for('static', filename='profiles/' + person.image_path) }}" alt="Rakesh's Photo" class="h-full">
                         </div>
                     </div>
                     {%endfor%}
