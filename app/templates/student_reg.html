@@ -11,8 +11,8 @@
 
 <body class="bg-gray-100">
     <div class="container mx-auto flex justify-center items-center h-screen">
-        <div class="grid grid-cols-2 bg-white shadow-lg rounded-lg overflow-hidden w-full flex">
-            <img src="https://www.shutterstock.com/image-photo/portrait-attractive-cheerful-girl-demonstrating-600nw-2113649489.jpg" alt="Image" class="hidden lg:block h-full w-full object-cover object-center flex-gow">
+        <div class="grid lg:grid-cols-2 md:grid-cols-2 xl:grid-cols-2 sm:grid-cols-2 xsm:grid-cols-1 bg-white shadow-lg rounded-lg overflow-hidden w-full flex">
+            <img src="https://www.shutterstock.com/image-photo/portrait-attractive-cheerful-girl-demonstrating-600nw-2113649489.jpg" alt="Image" class="hidden xl:block lg:block xsm:block sm:block md:block h-full w-full object-cover object-center flex-gow">
             <form method="POST" action="/student_registration" class="h-96 p-4 grid justify-center items-center">
                 <a href="/" class="block text-right text-blue-600 mb-2">BACK</a>
                 {{ form.csrf_token }}
@@ -45,10 +45,12 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-2 justify-center ml-10 mr-10 items-center mt-4">
+                    <p>already have an Account? <a class="border-b-2 border-black hover:text-red-600" href="/student_login"> Login</a><p>
+
                     {% if user_exists %}
                         <p class="text-red-500">Username or email already exists. Please choose different credentials.</p>
                     {% endif %}
-                    <button type="submit" onclick="return validateForm()" class="rounded-xl hover:bg-green-700 border-2 pt-2 pb-2 border-blue-800 ml-4">SIGN-UP</button>
+                    <button type="submit" onclick="return validateForm()" class="rounded-xl hover:bg-green-700 border-2 pt-2 pb-2 pl-2 pr-2 border-blue-800 ml-4">SIGN-UP</button>
                 </div>
             </form>
         </div>
