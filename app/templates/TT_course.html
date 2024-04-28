@@ -26,7 +26,7 @@
             </div>     
         </div>
         <div class="bg-rose-800 h-96 w-70 grid grid-cols-1 justify-center items-center rounded-md cursor-pointer p-10">
-            <div class="grid grid-cols-1 justify-center">
+            <div class="grid grid-cols-1 justify-center overflow-hidden">
                 <p >id:{{current_user.id}}</p>
                 <div class="profile-image-container ml-16">
                     {% if current_user.profile_image %}
@@ -43,7 +43,10 @@
                     <p class="pr-10">email:<b class="ml-2">{{current_user.email}}</b></p>
                     <p class="">course:<b class="ml-2">{{current_user.course}}</b></p>
                 </div>
-                <a href="/" class="border border-white py-1 px-3 rounded-lg flex justify-center bg-green-600 hover:bg-red-200">LOGOUT</a>
+                <div class="grid-cols-1 grid">
+                    <a href="#" id="deleteAccount" class="grid border-2 p-1 rounded-lg justify-center">Delete Account</a>
+                    <a href="/" class="grid justify-center border border-white p-1 rounded-lg mt-4">LOGOUT</a>
+                </div>
             </div>
         </div>   
     </div>
@@ -255,6 +258,16 @@
         // Set the new text content to the current date and time
         assessmentLink.textContent = "View Assessments (" + formattedDate + ")";
 
+    </script>
+    <script>
+        document.getElementById('deleteAccount').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+    
+            // Display confirmation dialog
+            if (confirm("Are you sure you want to delete your account?")) {
+                window.location.href = "/delete_account"; // Redirect to the delete account route
+            }
+        });
     </script>
 </body>
 </html>                        

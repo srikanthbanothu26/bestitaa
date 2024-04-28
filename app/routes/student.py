@@ -3,7 +3,7 @@ from app.forms.forms import Student_RegistrationForm, StudentLoginForm,forget_pa
 from app.oper.oper import check_user_exists, add_user
 from flask_bcrypt import Bcrypt
 from app.models.models import User
-from flask_login import login_user,login_required,current_user
+from flask_login import login_user,login_required,current_user,logout_user
 import os
 from app.extensions.db import db
 from werkzeug.utils import secure_filename
@@ -139,3 +139,21 @@ def forgot_password_verify_email():
         else:
             flash("Passwords do not match. Please try again.", "error")
     return render_template('forgot_password_update.html', form=form)
+
+
+@student_bp.route('/delete_account', methods=['GET','POST'])
+@login_required
+def delete_account():
+        # Check if the current user is authenticated
+        if current_user.is_authenticated:
+            try:
+                # Delete the user from the database
+                db.session.delete(current_user)
+                db.session.commit()
+                # Log the user out
+                logout_user()
+                flash("Your account has been successfully deleted.")
+                return redirect('/')
+            except Exception as e:
+                flash(f"An error occurred while deleting your account: {str(e)}", "error")
+    # If the request method is not POST or the user is not authenticated, redirect to the homepage
